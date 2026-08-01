@@ -1,20 +1,22 @@
 <!--
 Sync Impact Report
-- Version change: TEMPLATE → 1.0.0 (initial ratification)
-- Modified principles: n/a (first concrete set of principles)
+- Version change: 1.0.0 → 1.1.0 (principle additions)
+- Modified principles: n/a (existing principles I–IV unchanged)
 - Added sections:
-  - Core Principles: I. Test-First (TDD), II. Aislamiento de la Lógica de IA,
-    III. Fidelidad a la Fuente de Verdad, IV. Sin Secretos Hardcodeados
-  - Restricciones del Producto (QuestIt) — alcance, fórmulas de XP/nivel, aislamiento de datos por usuario
-  - Flujo de Desarrollo — ciclo rojo-verde-refactor, revisión de PRs
-  - Governance
-- Removed sections: none (template placeholders replaced)
+  - Core Principles: V. Usabilidad Verificable, VI. Responsive Multi-dispositivo,
+    VII. Presupuesto de Performance
+- Removed sections: none
+- Updated sections:
+  - Flujo de Desarrollo — referencia extendida a Principios I–VII
 - Templates requiring updates:
   - .specify/templates/plan-template.md ✅ no changes needed (Constitution Check gate already generic/data-driven)
   - .specify/templates/spec-template.md ✅ no changes needed (no principle-specific references)
-  - .specify/templates/tasks-template.md ✅ no changes needed (test-first ordering already supported by template structure)
+  - .specify/templates/tasks-template.md ✅ no changes needed (Polish/Cross-Cutting phase already accommodates performance/responsive tasks)
   - .specify/templates/commands/*.md ⚠ directory not present in this project — nothing to update
-- Follow-up TODOs: none
+- Follow-up TODOs:
+  - Considerar documentar en AGENTS.md una convención de "estructura" (organización
+    de carpetas, separación de lógica de negocio y componentes de UI). No se agrega
+    como principio de constitution por ser convención de código, no regla no-negociable.
 -->
 
 # QuestIt Constitution
@@ -70,6 +72,39 @@ similares) nunca se commitean al repositorio.
 repositorios públicos o compartidos, y facilita rotar secretos sin tocar
 código.
 
+### V. Usabilidad Verificable
+
+Toda pantalla o flujo nuevo debe minimizar los pasos necesarios para completar
+su acción principal. Toda acción asíncrona (guardar una tarea, completar un
+hábito, etc.) debe mostrar estados de carga y de error visibles para el
+usuario. No se aprueba una UI que deje al usuario sin feedback ante una acción
+en curso o que haya fallado.
+
+**Rationale**: La falta de feedback visual genera incertidumbre y acciones
+duplicadas (el usuario reintenta creyendo que no se ejecutó); exigir estados
+explícitos hace la usabilidad verificable en revisión, no subjetiva.
+
+### VI. Responsive Multi-dispositivo
+
+Toda UI nueva debe ser responsive y probarse en los breakpoints mobile,
+tablet y desktop antes de mergear. No se aprueban features que solo
+funcionen correctamente en un tamaño de pantalla.
+
+**Rationale**: QuestIt se usa en distintos dispositivos a lo largo del día
+(móvil, escritorio); una feature que rompe en un breakpoint fragmenta la
+experiencia y bloquea el uso real de la app.
+
+### VII. Presupuesto de Performance
+
+Toda página debe cumplir un presupuesto de performance mínimo: Lighthouse
+Performance score ≥ 90 y Time to Interactive < 3s en una conexión 4G
+simulada. Cualquier cambio que degrade una página por debajo de ese umbral
+debe justificarse explícitamente o revertirse.
+
+**Rationale**: La carga lenta es percibida como falta de calidad y afecta
+directamente la retención; fijar un umbral numérico evita que la degradación
+de performance se acumule de forma invisible a través de PRs sucesivos.
+
 ## Restricciones del Producto (QuestIt)
 
 - No se implementa nada listado como Fuera de Alcance en el PRD: logros,
@@ -86,7 +121,7 @@ código.
 
 - Todo cambio de código sigue el ciclo rojo-verde-refactor descrito en el
   Principio I antes de mergear.
-- Los pull requests deben verificar cumplimiento de los Principios I–IV y de
+- Los pull requests deben verificar cumplimiento de los Principios I–VII y de
   las Restricciones del Producto antes de aprobarse.
 - Cualquier violación de un principio debe justificarse explícitamente en la
   descripción del PR o en el plan de la feature (sección de Complexity
@@ -114,4 +149,4 @@ convención del proyecto, incluyendo AGENTS.md, en caso de conflicto.
   verificar el cumplimiento de esta constitución. La complejidad injustificada
   debe simplificarse antes de aprobar.
 
-**Version**: 1.0.0 | **Ratified**: 2026-08-01 | **Last Amended**: 2026-08-01
+**Version**: 1.1.0 | **Ratified**: 2026-08-01 | **Last Amended**: 2026-08-01
