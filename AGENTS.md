@@ -19,7 +19,7 @@ npx prisma migrate dev
 npm run dev
 ```
 
-Tests: aún no definidos.
+Tests: `npm test` (Vitest). Un archivo de test por servicio.
 
 ## Qué NO hacer
 
