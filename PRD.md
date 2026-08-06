@@ -60,10 +60,13 @@ QuestIt busca centralizar estas actividades en una única aplicación web, permi
   - Media: **10 XP**
   - Difícil: **20 XP**
 
-- **RN-04:** La experiencia acumulada del usuario corresponde a la suma de la experiencia obtenida por todas las tareas completadas y hábitos registrados.
+- **RN-04:** La experiencia acumulada del usuario corresponde a la suma de la experiencia obtenida por cada tarea completada (una sola vez por tarea) y por cada registro de cumplimiento diario de hábito (uno por hábito y por día calendario).
 - **RN-05:** El nivel del usuario se calcula mediante la fórmula:
 
 > **Nivel = ⌊XP acumulada / 100⌋ + 1**
+
+- **RN-06:** Un hábito solo puede tener un registro de cumplimiento por día calendario, para un mismo usuario y hábito. Un intento de registrar el cumplimiento cuando ya existe un registro para esa fecha no crea un nuevo registro ni otorga XP adicional.
+- **RN-07:** Completar una tarea es una operación idempotente: si la tarea ya se encuentra en estado "completada", un nuevo intento de completarla no otorga XP adicional ni modifica el registro existente.
 
 ---
 
@@ -88,7 +91,7 @@ QuestIt busca centralizar estas actividades en una única aplicación web, permi
 - **AC-08 (RF-08):** Dado un usuario autenticado, cuando crea un hábito indicando nombre y dificultad, entonces el hábito aparece en su lista.
 - **AC-09 (RF-09):** Dado un hábito existente, cuando el usuario modifica su información y guarda los cambios, entonces el hábito refleja los datos actualizados.
 - **AC-10 (RF-10):** Dado un hábito existente, cuando el usuario lo elimina, entonces deja de aparecer en su lista.
-- **AC-11 (RF-11):** Dado un hábito existente, cuando el usuario registra su cumplimiento diario, entonces el sistema almacena un registro asociado a la fecha actual.
+- **AC-11 (RF-11):** Dado un hábito existente, cuando el usuario registra su cumplimiento diario por primera vez ese día, entonces el sistema almacena un registro asociado a la fecha actual y suma la XP correspondiente.
 - **AC-12 (RF-12):** Dado una tarea con dificultad **Media**, cuando el usuario la completa, entonces el sistema suma exactamente **10 XP** a la experiencia acumulada del usuario.
 - **AC-13 (RF-13):** Dado un usuario con **205 XP** acumulados, cuando el sistema recalcula su progreso, entonces muestra el **Nivel 3**.
 - **AC-14 (RF-14):** Dado un usuario autenticado, cuando accede al panel principal, entonces visualiza su experiencia acumulada.
@@ -103,6 +106,8 @@ QuestIt busca centralizar estas actividades en una única aplicación web, permi
 - **AC-23 (RF-23):** Dado un usuario con un nivel calculado, cuando vuelve a iniciar sesión, entonces el sistema recupera su nivel previamente almacenado.
 - **AC-24 (RF-05, RF-06, RF-09, RF-10):** Dado un usuario autenticado, cuando intenta editar o eliminar una tarea o hábito perteneciente a otro usuario, entonces el sistema rechaza la operación y no realiza ningún cambio.
 - **AC-25 (RF-24):** Dado un usuario autenticado, cuando accede a su historial de actividad, entonces visualiza en orden cronológico descendente las tareas completadas y los hábitos cumplidos, incluyendo fecha y XP obtenida en cada uno.
+- **AC-26 (RF-11, RN-06):** Dado un hábito con un registro de cumplimiento ya almacenado para la fecha actual, cuando el usuario intenta registrar el cumplimiento nuevamente ese mismo día, entonces el sistema rechaza la operación sin crear un nuevo registro ni sumar XP adicional.
+- **AC-27 (RF-07, RN-07):** Dado una tarea en estado "completada", cuando el usuario intenta completarla nuevamente, entonces el sistema rechaza la operación sin otorgar XP adicional ni modificar el registro existente.
 
 ---
 
