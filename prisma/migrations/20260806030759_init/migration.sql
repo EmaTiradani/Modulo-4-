@@ -5,7 +5,7 @@ CREATE TYPE "Dificultad" AS ENUM ('Facil', 'Media', 'Dificil');
 CREATE TYPE "EstadoTarea" AS ENUM ('Pendiente', 'Completada');
 
 -- CreateEnum
-CREATE TYPE "TipoEventoHistorial" AS ENUM ('TareaCompletada', 'HabitoCumplido');
+CREATE TYPE "TipoEvento" AS ENUM ('TareaCompletada', 'HabitoCumplido');
 
 -- CreateTable
 CREATE TABLE "Usuario" (
@@ -58,7 +58,7 @@ CREATE TABLE "RegistroCumplimientoHabito" (
 CREATE TABLE "EventoHistorial" (
     "id" TEXT NOT NULL,
     "usuarioId" TEXT NOT NULL,
-    "tipo" "TipoEventoHistorial" NOT NULL,
+    "tipo" "TipoEvento" NOT NULL,
     "tareaId" TEXT,
     "habitoId" TEXT,
     "registroCumplimientoId" TEXT,
@@ -84,7 +84,7 @@ CREATE UNIQUE INDEX "RegistroCumplimientoHabito_habitoId_fecha_key" ON "Registro
 CREATE UNIQUE INDEX "EventoHistorial_registroCumplimientoId_key" ON "EventoHistorial"("registroCumplimientoId");
 
 -- CreateIndex
-CREATE INDEX "EventoHistorial_usuarioId_fecha_idx" ON "EventoHistorial"("usuarioId", "fecha");
+CREATE INDEX "EventoHistorial_usuarioId_fecha_id_idx" ON "EventoHistorial"("usuarioId", "fecha" DESC, "id" DESC);
 
 -- AddForeignKey
 ALTER TABLE "Tarea" ADD CONSTRAINT "Tarea_usuarioId_fkey" FOREIGN KEY ("usuarioId") REFERENCES "Usuario"("id") ON DELETE CASCADE ON UPDATE CASCADE;

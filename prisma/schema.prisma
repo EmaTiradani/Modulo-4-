@@ -19,7 +19,7 @@ enum EstadoTarea {
   Completada
 }
 
-enum TipoEventoHistorial {
+enum TipoEvento {
   TareaCompletada
   HabitoCumplido
 }
@@ -33,7 +33,7 @@ model Usuario {
 
   tareas    Tarea[]
   habitos   Habito[]
-  eventos   EventoHistorial[]
+  historial EventoHistorial[]
 }
 
 model Tarea {
@@ -80,18 +80,18 @@ model RegistroCumplimientoHabito {
 }
 
 model EventoHistorial {
-  id                     String              @id @default(uuid())
+  id                     String                      @id @default(uuid())
   usuarioId              String
-  usuario                Usuario             @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
-  tipo                   TipoEventoHistorial
+  usuario                Usuario                     @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  tipo                   TipoEvento
   tareaId                String?
-  tarea                  Tarea?              @relation(fields: [tareaId], references: [id], onDelete: SetNull)
+  tarea                  Tarea?                      @relation(fields: [tareaId], references: [id], onDelete: SetNull)
   habitoId               String?
-  habito                 Habito?             @relation(fields: [habitoId], references: [id], onDelete: SetNull)
-  registroCumplimientoId String?             @unique
+  habito                 Habito?                     @relation(fields: [habitoId], references: [id], onDelete: SetNull)
+  registroCumplimientoId String?                     @unique
   registroCumplimiento   RegistroCumplimientoHabito? @relation(fields: [registroCumplimientoId], references: [id], onDelete: SetNull)
-  fecha                  DateTime            @default(now())
+  fecha                  DateTime                    @default(now())
   xpObtenida             Int
 
-  @@index([usuarioId, fecha])
+  @@index([usuarioId, fecha(sort: Desc), id(sort: Desc)])
 }
