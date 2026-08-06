@@ -288,10 +288,10 @@ lista la actividad en orden cronológico descendente.
 - **FR-023**: El sistema MUST impedir que un mismo hábito otorgue
   experiencia más de una vez por fecha de cumplimiento, mostrando al
   usuario el mensaje "Este hábito ya fue registrado hoy" en lugar de
-  fallar silenciosamente o crear un registro duplicado.
+  fallar silenciosamente o crear un registro duplicado (RN-06).
 - **FR-024**: El sistema MUST impedir que una tarea ya completada otorgue
   experiencia adicional al recibir una nueva solicitud de completar la
-  misma tarea.
+  misma tarea (RN-07).
 - **FR-025**: El sistema MUST mostrar un estado de carga visible durante
   toda acción asíncrona (crear, editar, eliminar o completar una tarea;
   crear, editar, eliminar o registrar el cumplimiento de un hábito;

@@ -32,8 +32,7 @@ Hábito, RegistroCumplimientoHábito y EventoHistorial
 **Testing**: Vitest (unit/integration, incl. tests de integración contra
 una base de datos PostgreSQL de test real vía Prisma) + Playwright (e2e
 de los flujos críticos y de responsive) — decisión registrada en
-research.md, resolviendo el vacío señalado en AGENTS.md ("tests aún no
-definidos") para cumplir el Principio I (Test-First, NON-NEGOTIABLE).
+research.md, para cumplir el Principio I (Cobertura de Tests).
 
 **Target Platform**: Web (navegador), anchos de pantalla 360px–1920px
 (mobile, tablet, desktop) por el Principio VI
@@ -64,7 +63,7 @@ inicio
 
 | Principio | Evaluación |
 |---|---|
-| I. Test-First (NON-NEGOTIABLE) | PASS — stack de testing definido en research.md (Vitest + Playwright, DB de test real sin mocks). Todas las tareas de `/speckit-tasks` deberán seguir rojo-verde-refactor. |
+| I. Cobertura de Tests | PASS — stack de testing definido en research.md (Vitest + Playwright, DB de test real sin mocks). Todas las funcionalidades cuentan con tests en verde antes de mergear; el orden de escritura no es obligatorio desde la enmienda a la constitución v2.0.0. |
 | II. Aislamiento de la Lógica de IA | N/A — esta feature no invoca modelos de IA (explícitamente fuera de alcance: recomendaciones por IA). No se requiere módulo de IA. |
 | III. Fidelidad a la Fuente de Verdad | PASS — XP, nivel e historial se derivan siempre de la base de datos; ninguna cifra se infiere o genera fuera de las reglas de negocio fijas (RN-03/RN-05). |
 | IV. Sin Secretos Hardcodeados | PASS (a verificar en implementación) — credenciales de DB y secreto de sesión vía variables de entorno, `.env` no commiteado. |

@@ -8,10 +8,11 @@ description: "Task list template for feature implementation"
 **Input**: Design documents from `/specs/001-questit-core/`
 **Prerequisites**: plan.md, spec.md, research.md, data-model.md, contracts/api.md, quickstart.md
 
-**Tests**: Incluidos y obligatorios en cada historia — el Principio I
-(Test-First, NON-NEGOTIABLE) de la constitución exige escribir el test
-antes que la implementación y verlo fallar (rojo-verde-refactor). No son
-opcionales en este proyecto.
+**Tests**: Incluidos en cada historia — el Principio I (Cobertura de
+Tests) de la constitución exige que exista una suite en verde antes de
+mergear a la rama principal. En este proyecto ya se escribieron antes de
+la implementación (ver estado de verificación), pero eso no es un
+requisito no-negociable desde la enmienda a la constitución v2.0.0.
 
 **Organization**: Tareas agrupadas por historia de usuario (spec.md) para
 permitir implementación y prueba independiente de cada una.
@@ -218,7 +219,9 @@ Single project Next.js 14 (App Router) — ver plan.md §Project Structure:
 
 ### Within Each User Story
 
-- Tests se escriben y deben fallar antes de implementar (Principio I)
+- Tests se escriben antes de implementar por convención de este proyecto
+  (no lo exige el Principio I vigente, que solo requiere cobertura en
+  verde antes de mergear)
 - Modelos/datos (Foundational) antes que servicios/rutas
 - Rutas API antes que UI que las consume
 - Historia completa antes de pasar a la siguiente en ejecución secuencial
@@ -287,7 +290,7 @@ Con múltiples desarrolladores:
 - [P] = archivos distintos, sin dependencias pendientes
 - [Story] mapea cada tarea a su historia de usuario para trazabilidad
 - Cada historia debe ser completable y testeable de forma independiente
-- Verificar que los tests fallan antes de implementar (Principio I, NON-NEGOTIABLE)
+- Verificar que exista cobertura de tests en verde antes de mergear (Principio I)
 - Commitear después de cada tarea o grupo lógico
 - Detenerse en cada checkpoint para validar la historia de forma independiente
 - Evitar: tareas vagas, conflictos de archivo compartido entre tareas [P], dependencias cruzadas entre historias que rompan su independencia
