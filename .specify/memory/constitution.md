@@ -1,40 +1,50 @@
 <!--
 Sync Impact Report
-- Version change: 1.0.0 → 1.1.0 (principle additions)
-- Modified principles: n/a (existing principles I–IV unchanged)
-- Added sections:
-  - Core Principles: V. Usabilidad Verificable, VI. Responsive Multi-dispositivo,
-    VII. Presupuesto de Performance
+- Version change: 1.1.0 → 2.0.0 (non-negotiable principle redefined)
+- Modified principles:
+  - I. Test-First (NON-NEGOTIABLE) → I. Cobertura de Tests
+    (deja de exigir tests antes de la implementación / ciclo rojo-verde-refactor
+    estricto; pasa a exigir cobertura de tests en verde antes de mergear a la
+    rama principal, sin imponer el orden de escritura)
+- Added sections: none
 - Removed sections: none
 - Updated sections:
-  - Flujo de Desarrollo — referencia extendida a Principios I–VII
+  - Flujo de Desarrollo — la referencia al "ciclo rojo-verde-refactor descrito
+    en el Principio I" se reemplaza por una referencia genérica a la exigencia
+    de cobertura de tests antes de mergear.
 - Templates requiring updates:
-  - .specify/templates/plan-template.md ✅ no changes needed (Constitution Check gate already generic/data-driven)
-  - .specify/templates/spec-template.md ✅ no changes needed (no principle-specific references)
-  - .specify/templates/tasks-template.md ✅ no changes needed (Polish/Cross-Cutting phase already accommodates performance/responsive tasks)
+  - .specify/templates/plan-template.md ✅ no changes needed (Constitution Check gate ya genérico/data-driven, no referencia rojo-verde-refactor)
+  - .specify/templates/spec-template.md ✅ no changes needed (sin referencias específicas a orden de tests)
+  - .specify/templates/tasks-template.md ✅ no changes needed (los tests ya están marcados como OPTIONAL / a criterio de la feature, consistente con la nueva redacción del Principio I)
   - .specify/templates/commands/*.md ⚠ directory not present in this project — nothing to update
 - Follow-up TODOs:
   - Considerar documentar en AGENTS.md una convención de "estructura" (organización
     de carpetas, separación de lógica de negocio y componentes de UI). No se agrega
     como principio de constitution por ser convención de código, no regla no-negociable.
+  - Deuda técnica registrada: la reconstrucción de QuestIt Core que motivó este
+    cambio de versión se hace código-primero; los tests correspondientes deben
+    agregarse antes de mergear a la rama principal, conforme al Principio I
+    redefinido.
 -->
 
 # QuestIt Constitution
 
 ## Core Principles
 
-### I. Test-First (NON-NEGOTIABLE)
+### I. Cobertura de Tests
 
-Los tests se escriben antes que la implementación. El ciclo de desarrollo es
-estrictamente rojo-verde-refactor: (1) escribir un test que falle para el
-comportamiento deseado, (2) escribir el código mínimo para que pase, (3)
-refactorizar manteniendo los tests en verde. Ninguna funcionalidad nueva ni
-corrección de bug se integra sin un test previo que la cubra y que haya fallado
-antes de la implementación.
+Toda funcionalidad nueva o corrección de bug debe contar con tests automatizados
+que la cubran antes de mergear a la rama principal. El orden de escritura
+(tests antes o después de la implementación) queda a criterio de quien
+desarrolla; no se exige el ciclo rojo-verde-refactor de forma estricta. Es
+obligatorio que, al momento de mergear, exista una suite de tests en verde que
+ejercite el comportamiento nuevo o corregido.
 
-**Rationale**: Garantiza que el comportamiento esperado quede especificado de
-forma ejecutable antes de escribir código, reduce regresiones y evita que la
-implementación defina el contrato en lugar de la especificación.
+**Rationale**: Mantiene la exigencia de cobertura automatizada sin imponer una
+única metodología de desarrollo, dando flexibilidad para reconstrucciones o
+prototipado rápido donde escribir tests primero ralentiza la iteración, mientras
+preserva la garantía de que ningún cambio llega a la rama principal sin
+verificación automatizada.
 
 ### II. Aislamiento de la Lógica de IA
 
@@ -119,8 +129,8 @@ de performance se acumule de forma invisible a través de PRs sucesivos.
 
 ## Flujo de Desarrollo
 
-- Todo cambio de código sigue el ciclo rojo-verde-refactor descrito en el
-  Principio I antes de mergear.
+- Todo cambio de código cuenta con tests automatizados en verde antes de
+  mergear, conforme al Principio I.
 - Los pull requests deben verificar cumplimiento de los Principios I–VII y de
   las Restricciones del Producto antes de aprobarse.
 - Cualquier violación de un principio debe justificarse explícitamente en la
@@ -149,4 +159,4 @@ convención del proyecto, incluyendo AGENTS.md, en caso de conflicto.
   verificar el cumplimiento de esta constitución. La complejidad injustificada
   debe simplificarse antes de aprobar.
 
-**Version**: 1.1.0 | **Ratified**: 2026-08-01 | **Last Amended**: 2026-08-01
+**Version**: 2.0.0 | **Ratified**: 2026-08-01 | **Last Amended**: 2026-08-06
