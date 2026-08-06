@@ -2,18 +2,26 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests/e2e',
-  fullyParallel: false,
+  fullyParallel: true,
+  // La app usa una base de datos real (sin mocks, Principio III); los
+  // round-trips al pooler remoto suelen tardar varios segundos, muy por
+  // encima del timeout de aserción por defecto (5s) de Playwright.
+  expect: { timeout: 15_000 },
+  // Corre serializado: los tests comparten una única DB real remota
+  // (Supabase) y el pool de conexiones del server compartido, y correr
+  // en paralelo generó contención/timeouts intermitentes.
   workers: 1,
-  reporter: 'list',
+  retries: 0,
+  webServer: {
+    command: 'npm run build && npm run start',
+    url: 'http://localhost:3000',
+    reuseExistingServer: !process.env.CI,
+    timeout: 300_000,
+  },
   use: {
     baseURL: 'http://localhost:3000',
     trace: 'on-first-retry',
-  },
-  webServer: {
-    command: 'npm run dev',
-    url: 'http://localhost:3000',
-    reuseExistingServer: true,
-    timeout: 120_000,
+    actionTimeout: 15_000,
   },
   projects: [
     {
